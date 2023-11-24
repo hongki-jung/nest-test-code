@@ -7,7 +7,7 @@ import { Money } from 'src/money/domain/money';
 export class OrderService {
   constructor(private readonly orderRepository: OrderRepository) {}
 
-  // case 1
+  // bad case 1
   async receiptWorstCase(amount: number, description: string) {
     if (amount < 0) {
       throw new Error(`금액은 -가 될 수 없습니다. amount=${amount}`);
@@ -19,7 +19,7 @@ export class OrderService {
     await this.orderRepository.save(order);
   }
 
-  // bad case (case1을 리팩토링한 버전)
+  // bad case2 (bad case1을 리팩토링한 버전)
   // 문제상황  private으로 선언된 함수들은 어떻게 테스트 해야 할까?
   // private 메소드/함수의 테스트 코드는 작성하지 않는 것이 좋을때가 많다.
   // 그럼에도 불구하고 테스트코드를 작성해야 한다면 클래스 혹은 public함수들로 분리하는 것도 고려해볼만 하다.

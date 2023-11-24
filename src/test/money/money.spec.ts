@@ -1,4 +1,4 @@
-import { Money } from './money';
+import { Money } from '../../money/domain/money';
 
 describe('Money', () => {
   it('음수가 들어오면 에러가 발생한다', () => {

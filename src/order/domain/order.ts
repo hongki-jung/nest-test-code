@@ -1,5 +1,5 @@
 import { DayOfWeek, LocalDateTime } from '@js-joda/core';
-import { OrderStatus } from './order.status';
+import { OrderStatus } from './order-status.enum';
 import { Money } from 'src/money/domain/money';
 // import { Pay } from './Pay';
 // import { getConnection } from 'typeorm';
@@ -53,7 +53,6 @@ export class Order {
 
   static create(
     money: Money,
-
     description: string,
     orderTime = LocalDateTime.now(),
   ): Order {
@@ -118,7 +117,7 @@ export class Order {
   // 'Throw가 왜 발생하는지', 'return으로 의도한 결과가 넘어오는지' 등
   // 검증로직, 객체 생성로직 등 외부 저장소에 저장하는 로직을 제외한 나머지 모든 로직의 검증이 쉬워진다!!
   cancel(cancelTime: LocalDateTime): Order {
-    if (this._orderDateTime >= cancelTime) {
+    if (cancelTime.isBefore(this._orderDateTime)) {
       throw new Error('주문 시간이 주문 취소 시간보다 늦을 수 없습니다.');
     }
     const cancelOrder = new Order();
